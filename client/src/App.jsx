@@ -4,6 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Layout from "./routes/layout/layout";
+import ListPage from "./routes/listPage/listPage";
 
 
 function App() {
@@ -15,7 +16,11 @@ function App() {
         {
           path:"/",
           element:<HomePage/>
-        }
+        },
+        {
+          path:"/list",
+          element:<ListPage/>
+        },
         
       ]
     }
