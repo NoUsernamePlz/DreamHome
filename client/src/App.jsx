@@ -1,13 +1,30 @@
+import HomePage from "../src/routes/homepage/Homepage";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Layout from "./routes/layout/layout";
 
-import Navbar from './components/Navbar/Navbar';
+
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children:[
+        {
+          path:"/",
+          element:<HomePage/>
+        }
+        
+      ]
+    }
+  ]);
+
   return (
-    <>
-    <Navbar/>
-    <div className="layout">Hello World</div>
-    </>
-    
-  )
+
+    <RouterProvider router={router}/>
+  );
 }
 
-export default App
+export default App;
