@@ -46,8 +46,9 @@ export const login = async(req,res)=>{
             return res.status(401).json({error:"Invalid password"});
         }
         
-        const token = jwt.sign({id:user.id}, process.env.JWT_SECRET_KEY,{expiresIn:"7d"});
+        const token = jwt.sign({id:user.id,isAdmin:false}, process.env.JWT_SECRET_KEY,{expiresIn:"7d"});
         // res.setHeader("Set-cookie","test=" + "myValue").json("Login successful");
+        const {password:userPassword, ...userInfo} = user;
         res.cookie("token",token,{httpOnly:true,maxAge:24*60*60*1000*7,
 
         }).status(200).json("Login successful");

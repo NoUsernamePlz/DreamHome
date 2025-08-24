@@ -1,8 +1,9 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import postRoute from "./routes/post.routes.js"; 
+import authRoute from "./routes/auth.routes.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import testRoute from "./routes/test.routes.js";
 dotenv.config();   
 
 
@@ -18,7 +19,8 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/posts",postRoute);
+app.use("/api/auth",authRoute);
+app.use("/api/test",testRoute);
 
 
 
