@@ -1,8 +1,13 @@
 import express from "express";
-const router = express.Router();
+import { deleteUser, getUser, getUsers, updateUsers } from "../controllers/user.controller";
+import { verifyToken } from "../middleware/verifyToken";
 
-router.get("/", (req, res) => {
-  res.send("User route is working");
-});
+const router = express.Router();    
+
+router.get("/",verifyToken, getUsers);  
+router.get("/:id", verifyToken, getUser);
+router.put("/:id",verifyToken, updateUsers);      
+router.delete("/:id",verifyToken, deleteUser); 
+
 
 export default router;
