@@ -33,7 +33,7 @@ function NewPostPage() {
           longitude: inputs.longitude,
           images: images,
         },
-        postDetail: {
+        PostDetail: {
           desc: value,
           utilities: inputs.utilities,
           pet: inputs.pet,
@@ -168,7 +168,7 @@ function NewPostPage() {
           multiple: false,
           maxFiles: 1,
           cropping: true,
-          folder: "usersImage",
+          folder: "posts",
         }}
         setState={setImages}
         />
