@@ -2,11 +2,14 @@ import {  useContext } from "react";
 import "./profileUpdatePage.scss";
 import { AuthContext } from "../../context/AuthContext";
 import { useState } from "react";
-import apiRequest from "../../utils/apiRequest";
+import apiRequest from "../../lib/apiRequest";
+import UploadWidget from "../../components/uploadWidget/UploadWidget";
 
 function ProfileUpdatePage() {
   const [error, setError] = useState(null); 
   const {currentUser, updateUser} = useContext(AuthContext);
+  const [avatar, setAvatar] = useState(currentUser?.avatar||"");
+  console.log(currentUser)
   const handleSubmit = async e =>{
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -17,6 +20,7 @@ function ProfileUpdatePage() {
         username,
         email,
         password,
+        avatar
       });
       updateUser(res.data);
     }catch(err){
@@ -56,7 +60,17 @@ function ProfileUpdatePage() {
         </form>
       </div>
       <div className="sideContainer">
-        <img src={currentUser.avatar||"noavatar.jpg"} alt="" className="avatar" />
+        <img src={avatar||currentUser.avatar||"noavatar.jpg"} alt="" className="avatar" />
+        <UploadWidget uwConfig={{
+          cloudName: "komidev",
+          uploadPreset: "Dreamhouse",
+          multiple: false,
+          maxFiles: 1,
+          cropping: true,
+          folder: "usersImage",
+        }}
+        setAvatar = {setAvatar}
+        />
       </div>
     </div>
   );

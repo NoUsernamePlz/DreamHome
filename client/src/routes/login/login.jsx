@@ -14,7 +14,6 @@ function Login() {
     const formdata = new FormData(e.target);
    const username = formdata.get("username");
    const password = formdata.get("password");
-   console.log(username,password);
 
    try{
       const res = await apiRequest.post("/auth/login",{username,password});
