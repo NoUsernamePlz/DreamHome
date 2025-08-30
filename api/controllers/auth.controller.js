@@ -51,7 +51,7 @@ export const login = async(req,res)=>{
         const {password:userPassword, ...userInfo} = user;
         res.cookie("token",token,{httpOnly:true,maxAge:24*60*60*1000*7,
 
-        }).status(200).json("Login successful");
+        }).status(200).json(userInfo).message("Login successful");
 
     }catch(error){
         console.log(error);

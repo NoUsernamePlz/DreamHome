@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import prisma from "../lib/prisma.js";
 export const getUsers = async(req,res)=>{
     try{
         const users = await prisma.user.findMany();
@@ -34,8 +35,10 @@ export const updateUser = async(req,res)=>{
         return res.status(403).json({message:"You can update only your account!"});
     }
     try{
+        let hashedPassword;
         if(password){
-            const hashedPassword = await bcrypt.hash(password,process.env.SALT );
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password,salt);
             inputs.password = hashedPassword;
         }
         const updateUser = await prisma.user.update({
