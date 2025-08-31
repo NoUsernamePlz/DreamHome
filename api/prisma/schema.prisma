@@ -69,3 +69,5 @@ model PostDetail{
   post Post @relation(fields: [postId], references: [id])
   postId String @db.ObjectId @unique
 }
+
+
