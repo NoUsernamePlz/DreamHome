@@ -7,5 +7,10 @@ const io = new Server({
 });
 
 io.on("connection", (socket)=>{
-    console.log(socket);
-})
+    socket.on("test",(data)=>{
+        console.log(data)
+    })
+    console.log(socket.id);
+});
+
+io.listen("4000")

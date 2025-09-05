@@ -12,19 +12,19 @@ export const getUsers = async(req,res)=>{
 }
 
 
-// export const getUser = async(req,res)=>{
-//     try{
+export const getUser = async(req,res)=>{
+    try{
       
-//         const user = await prisma.user.findUnique({
-//             where:{
-//                 id: req.params.id
-//             }
-//         });
-//         res.status(200).json(user);    
-//     }catch(err){
-//         res.status(500).json({message:"Failed to get user!"});
-//     }
-// }
+        const user = await prisma.user.findUnique({
+            where:{
+                id: req.params.id
+            }
+        });
+        res.status(200).json(user);    
+    }catch(err){
+        res.status(500).json({message:"Failed to get user!"});
+    }
+}
 
 export const updateUser = async(req,res)=>{
     const id = req.params.id;
