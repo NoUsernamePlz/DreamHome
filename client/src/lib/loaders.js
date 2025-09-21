@@ -14,11 +14,92 @@ export const listPageLoader = async({request,params})=>{
     });
 };
 
+// export const profilePageLoader = async () => {
+//   const postPromise = apiRequest("/users/profilePosts");
+//   const chatPromise = apiRequest("/chats");
+//   const usersPromise = apiRequest("/users"); 
+
+//   return defer({
+//     postResponse: postPromise,
+//     chatResponse: chatPromise,
+//     usersResponse: usersPromise, 
+//   });
+// };
+
+
+// export const profilePageLoader = async () => {
+//   const postPromise = apiRequest("/users/profilePosts");
+//   const chatPromise = apiRequest("/chats");
+//   const usersPromise = apiRequest("/users");
+
+//   const chatResponse = chatPromise.then((res) =>
+//     res.data.map((chat) => ({
+//       ...chat,
+//       id: chat.id || chat.receiver?.id,
+//       lastMessage: chat.lastMessage || "No messages yet",
+//       seenBy: chat.seenBy || [],
+//     }))
+//   );
+
+//   return defer({
+//     postResponse: postPromise,
+//     chatResponse,
+//     usersResponse: usersPromise,
+//   });
+// };
+
+
+
+// export const profilePageLoader = async () => {
+//   const postPromise = apiRequest("/users/profilePosts");
+//   const chatPromise = apiRequest("/chats"); // combined chats
+//   const chatResponse = chatPromise.then((res) => res.data);
+
+//   return defer({
+//     postResponse: postPromise,
+//     chatResponse,
+//   });
+// };
+
+
+
 export const profilePageLoader = async () => {
-  const postPromise = apiRequest("/users/profilePosts");
-   const chatPromise = apiRequest("/chats");
+  const chatPromise = apiRequest("/chats"); // existing chats
+  const usersPromise = apiRequest("/users"); // all users
+
+  const chatResponse = chatPromise.then((res) => res.data);
+  const usersResponse = usersPromise.then((res) => res.data);
+
+  // Combine users and chats
+  const combinedChats = Promise.all([chatResponse, usersResponse]).then(
+    ([chats, users]) => {
+      const currentUserId = localStorage.getItem("currentUserId");
+
+      return users
+        .filter((u) => u.id !== currentUserId) // exclude current user
+        .map((user) => {
+          // Check if chat already exists with this user
+          let chat = chats.find((c) => c.userIDs.includes(user.id));
+
+          if (!chat) {
+            chat = {
+              id: null,
+              userIDs: [currentUserId, user.id],
+              lastMessage: "No messages yet",
+              seenBy: [],
+              messages: [],
+            };
+          }
+
+          return {
+            ...chat,
+            receiver: user,
+          };
+        });
+    }
+  );
+
   return defer({
-    postResponse: postPromise,
-    chatResponse: chatPromise
+    chatResponse: combinedChats,
   });
 };
