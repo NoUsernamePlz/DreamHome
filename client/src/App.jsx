@@ -12,6 +12,8 @@ import Login from "./routes/login/login";
 import ProfileUpdatePage from "./routes/profileUpdatePage/profileUpdatePage";
 import NewPostPage from "./routes/newPostPage/newPostPage";
 import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loaders";
+import About from "./routes/about/About";
+import Contact from "./routes/contact/ContactUs";
 
 
 function App() {
@@ -25,6 +27,15 @@ function App() {
           element:<HomePage/>
         },
         {
+          path:"/about",
+          element:<About/>
+        },
+         {
+          path:"/contact",
+          element:<Contact/>
+        },
+        {
+        
           path:"/list",
           element:<ListPage/>,
           loader:listPageLoader

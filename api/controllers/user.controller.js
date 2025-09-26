@@ -77,40 +77,45 @@ export const deleteUser = async(req,res)=>{
 
 
 export const savePost = async (req, res) => {
-  const postId = req.body.postId;
+  const { postId } = req.body;
   const tokenUserId = req.userId;
 
+  if (!postId) return res.status(400).json({ message: "Post ID is required" });
+
   try {
-    const savedPost = await prisma.savedPost.findUnique({
+    const postIdStr = String(postId);
+    const userIdStr = String(tokenUserId);
+
+    // Attempt to delete the saved post first
+    const deleted = await prisma.savedPost.deleteMany({
       where: {
-        userId_postId: {
-          userId: tokenUserId,
-          postId,
-        },
+        userId: userIdStr,
+        postId: postIdStr,
       },
     });
 
-    if (savedPost) {
-      await prisma.savedPost.delete({
-        where: {
-          id: savedPost.id,
-        },
-      });
-      res.status(200).json({ message: "Post removed from saved list" });
+    if (deleted.count > 0) {
+      // If a document was deleted → post was previously saved
+      return res.status(200).json({ message: "Post removed from saved list", saved: false });
     } else {
+      // If no document was deleted → post not saved yet, so save it
       await prisma.savedPost.create({
         data: {
-          userId: tokenUserId,
-          postId,
+          userId: userIdStr,
+          postId: postIdStr,
         },
       });
-      res.status(200).json({ message: "Post saved" });
+      return res.status(200).json({ message: "Post saved", saved: true });
     }
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Failed to delete users!" });
+    console.error("Error in savePost:", err);
+    return res.status(500).json({ message: "Failed to toggle saved post" });
   }
 };
+
+
+
+
 
 export const profilePosts = async (req, res) => {
   const tokenUserId = req.userId;

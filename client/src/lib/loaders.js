@@ -63,43 +63,91 @@ export const listPageLoader = async({request,params})=>{
 
 
 
+
+// export const profilePageLoader = async () => {
+//   const chatPromise = apiRequest("/chats"); 
+//   const usersPromise = apiRequest("/users"); 
+//   const postPromise = apiRequest("/users/profilePosts"); 
+
+//   const chatResponse = chatPromise.then((res) => res.data);
+//   const usersResponse = usersPromise.then((res) => res.data);
+//   const postResponse = postPromise.then((res) => res.data);
+
+
+//   const combinedChats = Promise.all([chatResponse, usersResponse]).then(
+//     ([chats, users]) => {
+//       const currentUserId = localStorage.getItem("currentUserId");
+
+//       return users
+//         .filter((u) => u.id !== currentUserId) 
+//         .map((user) => {
+  
+//           let chat = chats.find((c) => c.userIDs.includes(user.id));
+
+//           if (!chat) {
+//             chat = {
+//               id: null,
+//               userIDs: [currentUserId, user.id],
+//               lastMessage: "No messages yet",
+//               seenBy: [],
+//               messages: [],
+//             };
+//           }
+
+//           return {
+//             ...chat,
+//             receiver: user,
+//           };
+//         });
+//     }
+//   );
+
+//   return defer({
+//     chatResponse: combinedChats,
+//     postResponse, 
+//   });
+// };
+
+
+
 export const profilePageLoader = async () => {
-  const chatPromise = apiRequest("/chats"); // existing chats
-  const usersPromise = apiRequest("/users"); // all users
+  try {
+    const chatPromise = apiRequest("/chats").then(res => res.data);
+    const usersPromise = apiRequest("/users").then(res => res.data);
+    const postPromise = apiRequest("/users/profilePosts").then(res => res.data);
 
-  const chatResponse = chatPromise.then((res) => res.data);
-  const usersResponse = usersPromise.then((res) => res.data);
+    const combinedChats = Promise.all([chatPromise, usersPromise]).then(
+      ([chats, users]) => {
+        const currentUserId = localStorage.getItem("currentUserId");
+        return users
+          .filter(u => u.id !== currentUserId)
+          .map(user => {
+            let chat = chats.find(c => c.userIDs.includes(user.id));
+            if (!chat) {
+              chat = {
+                id: null,
+                userIDs: [currentUserId, user.id],
+                lastMessage: "No messages yet",
+                seenBy: [],
+                messages: [],
+              };
+            }
+            return { ...chat, receiver: user };
+          });
+      }
+    );
 
-  // Combine users and chats
-  const combinedChats = Promise.all([chatResponse, usersResponse]).then(
-    ([chats, users]) => {
-      const currentUserId = localStorage.getItem("currentUserId");
-
-      return users
-        .filter((u) => u.id !== currentUserId) // exclude current user
-        .map((user) => {
-          // Check if chat already exists with this user
-          let chat = chats.find((c) => c.userIDs.includes(user.id));
-
-          if (!chat) {
-            chat = {
-              id: null,
-              userIDs: [currentUserId, user.id],
-              lastMessage: "No messages yet",
-              seenBy: [],
-              messages: [],
-            };
-          }
-
-          return {
-            ...chat,
-            receiver: user,
-          };
-        });
-    }
-  );
-
-  return defer({
-    chatResponse: combinedChats,
-  });
+    return defer({
+      chatResponse: combinedChats,
+      userPosts: postPromise.then(data => data.userPosts),
+      savedPosts: postPromise.then(data => data.savedPosts),
+    });
+  } catch (err) {
+    console.error("Loader error:", err);
+    return defer({
+      chatResponse: [],
+      userPosts: [],
+      savedPosts: [],
+    });
+  }
 };

@@ -1,18 +1,57 @@
-@import"../src/routes/layout/layout.scss";
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+@import "../src/routes/layout/layout.scss";
+
+$blue: #1e88e5;
+$green: #43a047;
+$gray: #6b7280;
+$light-bg: #f0f8ff;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-a{
-    text-decoration: none;
-    color: inherit;
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $blue;
+  }
 }
 
-body{
-    font-family: 'Lato', sans-serif;
-    overflow: hidden;
-    background-color: #f5f5f5;
-    color: #333;
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: $light-bg;
+  color: $gray;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, textarea {
+  font-family: inherit;
+  border: 1px solid lighten($gray, 30%);
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+
+  &:focus {
+    border-color: $blue;
+    box-shadow: 0 0 0 2px rgba($blue, 0.15);
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
 }

@@ -4,38 +4,40 @@ import { AuthContext } from "../../context/AuthContext";
 import "./homePage.scss";
 
 function HomePage() {
-  const {currentUser} = useContext(AuthContext);
-  console.log(currentUser);
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="homePage">
       <div className="textContainer">
         <div className="wrapper">
-          <h1 className="title">Find Real Estate & Get Your Dream Place</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-            explicabo suscipit cum eius, iure est nulla animi consequatur
-            facilis id pariatur fugit quos laudantium temporibus dolor ea
-            repellat provident impedit!
+          <h1 className="title">Discover Your Perfect Home</h1>
+          <p className="subtitle">
+            Explore modern apartments, cozy houses, and premium commercial
+            spaces. With trusted experience and thousands of properties, we’ll
+            help you find your dream place with ease.
           </p>
+
           <SearchBar />
-          <div className="boxes">
-            <div className="box">
+
+          <div className="stats">
+            <div className="statCard">
               <h1>16+</h1>
-              <h2>Years of Experience</h2>
+              <p>Years of Expertise</p>
             </div>
-            <div className="box">
-              <h1>200</h1>
-              <h2>Award Gained</h2>
+            <div className="statCard">
+              <h1>200+</h1>
+              <p>Awards & Recognitions</p>
             </div>
-            <div className="box">
-              <h1>2000+</h1>
-              <h2>Property Ready</h2>
+            <div className="statCard">
+              <h1>2,000+</h1>
+              <p>Properties Available</p>
             </div>
           </div>
         </div>
       </div>
+
       <div className="imgContainer">
-        <img src="/bg.png" alt="" />
+        <img src="/bgImg.png" alt="Real estate hero" />
       </div>
     </div>
   );

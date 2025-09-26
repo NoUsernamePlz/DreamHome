@@ -1,10 +1,16 @@
 @import "../../responsive.scss";
 
+$blue: #347e3a;
+$green: #43a047;
+$light-bg: #f5f9ff;
+$gray: #6b7280;
+
 .profilePage {
   display: flex;
   height: 100%;
+  background: $light-bg; // ✅ light background like homePage
 
-  @include md{
+  @include md {
     flex-direction: column;
     overflow: scroll;
   }
@@ -12,76 +18,110 @@
   .details {
     flex: 3;
     overflow-y: scroll;
+    padding: 40px;
     padding-bottom: 50px;
 
-    @include md{
-      flex:none;
+    @include md {
+      flex: none;
       height: max-content;
+      padding: 20px;
     }
 
-    .wrapper{
-      padding-right: 50px;
+    .wrapper {
+      padding-right: 40px;
       display: flex;
       flex-direction: column;
-      gap: 50px;
+      gap: 40px;
 
-      .title{
+      .title {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        h1{
-          font-weight: 300;
+        h1 {
+          font-weight: 700;
+          color: $blue; // ✅ blue headings
+          font-size: 28px;
         }
 
-        button{
+        button {
           padding: 12px 24px;
-          background-color: #fece51;
-          cursor: pointer;
+          background: $green; // ✅ green button
+          color: white;
           border: none;
+          border-radius: 10px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: darken($green, 7%);
+            transform: translateY(-2px);
+          }
         }
       }
 
-      .info{
+      .info {
         display: flex;
         flex-direction: column;
         gap: 20px;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 
-        span{
+        span {
           display: flex;
           align-items: center;
-          gap: 20px;
+          gap: 15px;
+          color: $gray;
+          font-size: 16px;
+
+          b {
+            color: $blue;
+          }
         }
-        
-        button{
-          width :100px;
-          background-color: teal;
-          color:white;
-          border:none;
-          padding:10px 20px;
+
+        button {
+          width: 120px;
+          background: $blue; // ✅ blue button for logout
+          color: white;
+          border: none;
+          border-radius: 10px;
+          padding: 10px 20px;
           cursor: pointer;
+          font-weight: 500;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: darken($blue, 8%);
+          }
         }
-        img{
-          width: 40px;
-          height: 40px;
+
+        img {
+          width: 45px;
+          height: 45px;
           border-radius: 50%;
           object-fit: cover;
         }
       }
     }
   }
+
   .chatContainer {
     flex: 2;
-    background-color: #fcf5f3;
+    background: white; 
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
     height: 100%;
 
-    @include md{
-      flex:none;
+    @include md {
+      flex: none;
       height: max-content;
+      border-left: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
 
-    .wrapper{
-      padding: 0px 20px;
+    .wrapper {
+      padding: 20px;
       height: 100%;
     }
   }

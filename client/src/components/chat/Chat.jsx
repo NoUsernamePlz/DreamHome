@@ -119,7 +119,7 @@ return (
               backgroundColor:
                 c.seenBy.includes(currentUser.id) || chat?.id === c.id
                   ? "white"
-                  : "#fecd514e",
+                  : "hsl(124, 81%, 92%)",
             }}
             onClick={() => handleOpenChat(c.id, c.receiver)}
           >
@@ -150,7 +150,7 @@ return (
   style={{
     alignSelf: msg.userId === currentUser.id ? "flex-end" : "flex-start",
     textAlign: msg.userId === currentUser.id ? "right" : "left",
-    backgroundColor: msg.userId === currentUser.id ? "#fff176" : "#f1f1f1", 
+    backgroundColor: msg.userId === currentUser.id ? "#43a047;" : "#f1f1f1", 
     borderRadius: "12px",
     padding: "8px 12px",
     margin: "4px 0",

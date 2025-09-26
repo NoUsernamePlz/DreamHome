@@ -1,0 +1,148 @@
+@import "../../responsive.scss";
+
+$blue: #317737;
+$green: #43a047;
+$light-bg: #f0f8ff;
+$gray: #6b7280;
+
+.aboutPage {
+  background-color: $light-bg;
+  padding: 50px 5%;
+  font-family: "Poppins", sans-serif;
+
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 60px;
+
+    @include md {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .text {
+      flex: 2;
+
+      h1 {
+        font-size: 48px;
+        color: $blue;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 18px;
+        color: $gray;
+        line-height: 1.6;
+      }
+    }
+
+    .image {
+      flex: 3;
+
+      img {
+        width: 100%;
+        max-width: 650px;
+        border-radius: 16px;
+      }
+    }
+  }
+
+  .missionVision {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 60px;
+
+    @include md {
+      flex-direction: column;
+    }
+
+    .mission, .vision {
+      flex: 1;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+
+      h2 {
+        color: $blue;
+        margin-bottom: 15px;
+      }
+
+      p {
+        color: $gray;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  .team {
+    text-align: center;
+    margin-bottom: 60px;
+
+    h2 {
+      color: $blue;
+      margin-bottom: 40px;
+      font-size: 36px;
+    }
+
+    .teamMembers {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .member {
+        background: white;
+        padding: 20px;
+        border-radius: 16px;
+        width: 220px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+
+        img {
+          width: 100%;
+          border-radius: 50%;
+          margin-bottom: 15px;
+        }
+
+        h3 {
+          color: $blue;
+          margin-bottom: 5px;
+        }
+
+        p {
+          color: $gray;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .values {
+    text-align: center;
+
+    h2 {
+      color: $blue;
+      margin-bottom: 30px;
+      font-size: 36px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+
+      li {
+        background: white;
+        padding: 15px 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        font-weight: 500;
+        color: $gray;
+      }
+    }
+  }
+}

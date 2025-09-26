@@ -1,59 +1,84 @@
 @import "../../responsive.scss";
 
+$blue: #347e3a;
+$green: #43a047;
+$light-bg: #f5f9ff;
+$gray: #6b7280;
+
+
 .homePage {
   display: flex;
-  height: 100%;
+   min-height: 100vh; 
+    overflow: hidden;
+  background: $light-bg;
 
   .textContainer {
     flex: 3;
+    display: flex;
+    align-items: center;
 
     .wrapper {
-      padding-right: 100px;
+      padding-right: 80px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 50px;
-      height: 100%;
+      gap: 30px;
 
-      @include lg{
-        padding-right: 50px;
-      }
-
-      @include md{
-        padding: 0;
-      }
-
-      @include sm{
-        justify-content: flex-start;
+      @include md {
+        padding: 20px;
       }
 
       .title {
-        font-size: 64px;
+        font-size: 46px;
+        line-height: 110%;
+        font-weight: 700;
+        color: $blue;
 
         @include lg {
-          font-size: 48px;
+          font-size: 42px;
         }
       }
 
-      .boxes {
+      .subtitle {
+        font-size: 18px;
+        line-height: 1.6;
+        color: $gray;
+        max-width: 600px;
+      }
+
+      .stats {
         display: flex;
-        justify-content: space-between;
+        gap: 30px;
+        margin-top: 20px;
 
         @include sm {
-          display: none;
+          flex-direction: column;
+          gap: 15px;
         }
 
-        h1 {
-          font-size: 36px;
+        .statCard {
+          background: white;
+          padding: 20px 25px;
+          border-radius: 16px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+          text-align: center;
+          flex: 1;
+          transition: transform 0.2s ease;
 
-          @include lg {
-            font-size: 32px;
+          &:hover {
+            transform: translateY(-5px);
           }
-        }
 
-        h2 {
-          font-size: 20px;
-          font-weight: 300;
+          h1 {
+            font-size: 32px;
+            color: $green;
+            margin-bottom: 8px;
+          }
+
+          p {
+            font-size: 15px;
+            color: $gray;
+            font-weight: 500;
+          }
         }
       }
     }
@@ -61,23 +86,19 @@
 
   .imgContainer {
     flex: 2;
-    background-color: #fcf5f3;
-    position: relative;
+    background: transparent;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 20px;
 
     @include md {
       display: none;
     }
 
     img {
-      width: 115%;
-      position: absolute;
-      right: 0;
-
-      @include lg {
-        width: 105%;
-      }
+      width: 120%;
+      max-width: 700px;
     }
   }
 }
